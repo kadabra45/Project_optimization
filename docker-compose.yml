@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+
+  admin:
+    image: adminer
+    ports:
+      - "8080:8080"
+
+  streamlit:
+    build:
+      context: ./app_fastapi
+      dockerfile: Dockerfile
+    image: dataviz/streamlit:0.0.1
+    container_name: streamlitdataviz
+    volumes:
+      - "./app_fastapi:/app_fastapi"
+    environment:
+      PYTHONUNBUFFERED: 'true'
+    ports:
+      - "8501:8501"
